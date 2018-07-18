@@ -1,0 +1,72 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    购物车
+{% endblock %}
+
+{% block content %}
+    <h1>购物车</h1>
+    <table class="cart">
+        <thead>
+            <tr>
+                <th>图片</th>
+                <th>商品</th>
+                <th>数量</th>
+                <th>删除</th>
+                <th>单价</th>
+                <th>总价</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cart in cart_list %}
+            {% with product=cart.product %}
+            <tr id="{{ cart.id }}">
+                <td>
+                    <a href="{{ product.get_absolute_url }}">
+                        <img src="{% if product.image %}{{ product.image.url }}
+                        {% else %}{% static 'img/no_image.png' %}{% endif %}">
+                    </a>
+                </td>
+                <td>{{ product.name }}</td>
+                <td>
+                    <form action="." method="post">
+                        {% csrf_token %}
+                        <input id="quantity" type="number" name="quantity"
+                               value="{{ cart.quantity }}" min="1" max="100">
+                        <input id="p_id" type="hidden" name="p_id" value="{{ product.id }}">
+                        <button id="submit">修改数量</button>
+                    </form>
+                </td>
+                <td><a href="{% url 'cart:cart_remove' product.id %}">删除</a></td>
+                <td class="num">￥{{ product.price }}</td>
+                <td class="num">￥{{ cart.get_total_price }}</td>
+            </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td>总计</td>
+            <td colspan="4"></td>
+            <td class="num">￥{{ total_cost }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="text-right">
+        <a href="{% url 'shop:product_list' %}" class="button light">继续购物</a>
+        <a href="#" class="button">结算</a>
+    </p>
+
+<script>
+    $("#submit").click(
+        function(){
+        var quantity = $("#quantity").val();
+        var p_id = $("#p_id").val();
+        $.post('.', {'quantity':quantity,'p_id':p_id}, function(data){
+            console.log('ok')
+            })
+        }
+    )
+
+</script>
+
+{% endblock %}

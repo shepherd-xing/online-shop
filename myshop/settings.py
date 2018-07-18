@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
+    'registration',
+    'cart',
     'shop',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -128,3 +131,25 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+CART_SESSION_ID = 'cart'
+
+#django-registration-redux
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login/'
+
+#crispy_forms
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+
+
+
+
+
+
+
+
+

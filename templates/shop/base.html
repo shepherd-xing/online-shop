@@ -5,10 +5,27 @@
     <meta charset="UTF-8">
     <title>{% block title %}My shop{% endblock %}</title>
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery.js' %}"></script>
+    {#<script src="https://code.jquery.com/jquery-3.3.1.min.js">#}
+    <script>
+       $.ajaxSetup({
+        data:{csrfmiddlewaretoken: '{{ csrf_token }}'}
+       })
+    </script>
 </head>
 <body>
     <div id="header">
         <a href="/" class="logo">My shop</a>
+        <div id="register" style="float:right">
+            {% if user.is_authenticated %}
+                {{ user.username }}
+                <a href="{% url 'auth_logout' %}?next=/">退出</a>
+            {% else %}
+                <a href="{% url 'registration_register' %}">注册</a>
+                <a href="{% url 'auth_login' %}">登录</a>
+            {% endif %}
+            <a href="{% url 'cart:cart_detail' %}">购物车</a>
+        </div>
     </div>
     <div id="subheader">
         <div class="cart">
