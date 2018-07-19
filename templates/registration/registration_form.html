@@ -5,7 +5,12 @@
     <h1>注册</h1>
     <form method="post" action=".">
         {% csrf_token %}
-        {{ form|crispy }}
+        <p>
+        <label>用户名：</label>{{ form.username }}
+        <label>邮箱：</label>{{ form.email }}
+        <label>密码：</label>{{ form.password1 }}
+        <label>确认密码：</label>{{ form.password2 }}
         <input type="submit" value="注册">
+        </p>
     </form>
 {% endblock %}

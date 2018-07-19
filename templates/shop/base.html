@@ -29,7 +29,31 @@
     </div>
     <div id="subheader">
         <div class="cart">
-            Your cart is empty.
+            {% if user.is_authenticated %}
+                {% with total_items=cart_list|length %}
+                    {% if cart_list|length > 0 %}
+                        购物车：
+                        <a href="{% url 'cart:cart_detail' %}">
+                        {{ total_items }}种商品
+                        共{{ total_cost }}元
+                        </a>
+                    {% else %}
+                         您的购物车是空的。
+                    {% endif %}
+                {% endwith %}
+            {% else %}
+                {% with total_items=cart|length %}
+                    {% if cart|length > 0 %}
+                        购物车：
+                        <a href="{% url 'cart:cart_detail' %}">
+                            {{ total_items }}种商品
+                            共{{ cart.get_total_price }}元
+                        </a>
+                    {% else %}
+                        您的购物车是空的。
+                    {% endif %}
+                {% endwith %}
+            {% endif %}
         </div>
     </div>
     <div id="content">

@@ -19,9 +19,9 @@
             </tr>
         </thead>
         <tbody>
-            {% for cart in cart_list %}
-            {% with product=cart.product %}
-            <tr id="{{ cart.id }}">
+            {% for cart_ in cart_list %}
+            {% with product=cart_.product %}
+            <tr id="{{ cart_.id }}">
                 <td>
                     <a href="{{ product.get_absolute_url }}">
                         <img src="{% if product.image %}{{ product.image.url }}
@@ -33,14 +33,14 @@
                     <form action="." method="post">
                         {% csrf_token %}
                         <input id="quantity" type="number" name="quantity"
-                               value="{{ cart.quantity }}" min="1" max="100">
+                               value="{{ cart_.quantity }}" min="1" max="100">
                         <input id="p_id" type="hidden" name="p_id" value="{{ product.id }}">
                         <button id="submit">修改数量</button>
                     </form>
                 </td>
                 <td><a href="{% url 'cart:cart_remove' product.id %}">删除</a></td>
                 <td class="num">￥{{ product.price }}</td>
-                <td class="num">￥{{ cart.get_total_price }}</td>
+                <td class="num">￥{{ cart_.get_total_price }}</td>
             </tr>
             {% endwith %}
         {% endfor %}
