@@ -23,7 +23,7 @@ class Order(models.Model):
         return sum(item.get_cost() for item in self.items.all())
 
 class OrderItem(models.Model):
-    '''订单中的商品的信息，相同商品为一条信息，也是一个OrderItem实例'''
+    '''订单中的商品的信息，每个订单的相同的商品为一条信息，也是一个OrderItem实例'''
     order = models.ForeignKey(Order, verbose_name='所在订单', related_name='items')
     product = models.ForeignKey(Product, verbose_name='商品', related_name='order_items')
     price = models.DecimalField('价格', max_digits=10, decimal_places=2)
