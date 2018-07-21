@@ -4,12 +4,12 @@ from shop.models import Product
 # Create your models here.
 class Order(models.Model):
     '''订单信息，比如收货人姓名地址等'''
-    first_name = models.CharField('名', max_length=50)
-    last_name = models.CharField('姓', max_length=50)
+    province = models.CharField('省市', max_length=20)
+    city = models.CharField('城市', max_length=100)
+    address = models.CharField('街道地址', max_length=250)
+    name = models.CharField('收货人', max_length=50)
+    tel = models.IntegerField('电话')
     email = models.EmailField('邮箱')
-    address = models.CharField('地址', max_length=250)
-    postal_code = models.CharField('邮编', max_length=6)
-    city=models.CharField('城市', max_length=100)
     created = models.DateTimeField('创建时间', auto_now_add=True)
     updated = models.DateTimeField('修改时间', auto_now=True)
     paid = models.BooleanField('是否付款', default=False)
