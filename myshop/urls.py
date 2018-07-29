@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^orders/', include('orders.urls', namespace='orders')),
     url(r'^cart/', include('cart.urls', namespace='cart')),
+    url(r'api/', include('api.urls', namespace='api')),
     url(r'^', include('shop.urls', namespace='shop')),
 ]
 if settings.DEBUG:
